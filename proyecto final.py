@@ -2,11 +2,19 @@ import sqlite3
 import os
 
 try:
-    from colorama import Fore, Style, init
+    from colorama import Fore, Style, init # type: ignore
     init(autoreset=True)
     COLOR_ENABLED = True
 except ImportError:
     COLOR_ENABLED = False
+
+# Definir Fore y Style vacíos si colorama no está disponible
+class Dummy:
+    def __getattr__(self, attr):
+        return ''
+
+Fore = Dummy()
+Style = Dummy()
 
 
 def c(text, color):
